@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title>none</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.00">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.plyr.io/3.7.8/plyr.js" integrity="sha512-J38+xU4dst47XHGFCEmtOtp5vIBxRRNN4+7uGyRStbv22sZiVi0N/nqKSN5Hqf6vnLDLoRlCSQ8qtiSdNirBlA==" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link href="https://cdn.jsdelivr.net/gh/daydreamer-json/SomeFontRepo@main/somefontrepo.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@3.0.1/dist/full.min.css" integrity="sha512-TOrzWMqJM2HMijmEZEUHSW4fMXEhwNKHQ68xfx2wwkVxjv/SrPjtwIV6Ec1qxc42kEVx3synxsHeHRGpMBEmRw==" crossorigin="anonymous">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="h-screen w-screen bg-coverArt bg-no-repeat bg-cover bg-center font-udshingont select-none">
+    <div class="h-screen w-screen flex flex-col py-8 px-16 justify-center drop-shadow-[0_24px_24px_rgba(0,0,0,0.5)] backdrop-blur-[48px]">
+      <!-- text-white text-center p-4 bg-red-300 rounded-lg blur-sm transition-all duration-300 hover:scale-110 hover:bg-red-500 hover:drop-shadow-[0_24px_24px_rgba(0,0,0,0.35)] hover:blur-none -->
+      <div class="text-white text-center p-0 h-4/6 bg-gray-700/70 rounded-t-[12px] bg-coverArt bg-no-repeat bg-contain bg-center">
+      </div>
+      <div class="text-white text-center p-4 bg-gray-600/70">
+        <p id="main_trackNameField" class="text-3xl drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)]"></p>
+        <p id="main_albumTitleField" class="text-lg drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)]">Click the Play button to play</p>
+        <p id="main_albumArtistField" class="text-lg drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)]">Click the Skip button to play the next song</p>
+      </div>
+      <div class="text-white text-center p-4 bg-gray-500/70 rounded-b-[12px]">
+        <div class="flex text-center items-center justify-center">
+          <!-- <svg class="w-12 h-12 transition-all duration-300 hover:scale-[1.20] hover:drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] active:scale-[1.10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
+          </svg> -->
+          <label class="swap w-12 h-12 transition-all duration-300 hover:scale-[1.20] hover:drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] active:scale-[1.10]">
+            <input type="checkbox" />
+            <svg class="swap-off w-full h-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+            </svg>
+            <svg class="swap-on w-full h-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+            </svg>
+          </label>
+          <svg onclick="skipButtonPressed()" class="w-12 h-12 transition-all duration-300 hover:scale-[1.20] hover:drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] active:scale-[1.10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+          </svg>
+          <svg onclick="someInfoModal.showModal()" class="ml-1 w-10 h-10 transition-all duration-300 hover:scale-[1.20] hover:drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] active:scale-[1.10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+          </svg>
+          <svg onclick="settingsModal.showModal()" class="ml-0.5 mr-4 w-10 h-10 transition-all duration-300 hover:scale-[1.20] hover:drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] active:scale-[1.10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <!--
+            Play Icon: M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z
+            Pause Icon: M15.75 5.25v13.5m-7.5-13.5v13.5
+          -->
+          <progress id="main_progressBar" class="grow progress" min="0" max="100"></progress>
+        </div>
+      </div>
+    </div>
+    <dialog id="someInfoModal" class="modal">
+      <form method="dialog" class="modal-box bg-white-900 text-left select-none">
+        <div id="infoModal_tabParent" class="tabs pb-4">
+          <a id="infoModal_fileTab" onclick="changeInfoModalTab('infoModal_fileTab')" class="tab tab-lifted tab-active w-1/2">File Info</a>
+          <a id="infoModal_audioTab" onclick="changeInfoModalTab('infoModal_audioTab')" class="tab tab-lifted w-1/2">Audio Info</a>
+        </div>
+        <form method="dialog" class="modal-box bg-white-900 text-left select-none">
+          <div id="infoModal_fileTabContent" class="block">
+            <p class="text-xl text-bold">Track Information</p>
+            <div class="overflow-x-auto">
+              <table class="table table-xs table-pin-cols">
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <td>Value</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Track Name (en-US)</th>
+                    <td id="infoModal_fileTabContent_field_trackName_en-us" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Track Name (ja-JP)</th>
+                    <td id="infoModal_fileTabContent_field_trackName_ja-jp" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Track Name (zh-CN)</th>
+                    <td id="infoModal_fileTabContent_field_trackName_zh-cn" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Album Artist</th>
+                    <td id="infoModal_fileTabContent_field_albumArtist" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Album Title (en-US)</th>
+                    <td id="infoModal_fileTabContent_field_albumTitle_en-us" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Album Title (ja-JP)</th>
+                    <td id="infoModal_fileTabContent_field_albumTitle_ja-jp" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Album Title (zh-CN)</th>
+                    <td id="infoModal_fileTabContent_field_albumTitle_zh-cn" class="select-all font-notosanssc">null</td>
+                  </tr>
+                  <tr>
+                    <th>External Link</th>
+                    <td class="select-none">
+                      <a id="infoModal_fileTabContent_field_link_vgmdb" href="" class="link link-hover" target="_blank" rel="noopener noreferrer">VGMdb</a><br>
+                      <a id="infoModal_fileTabContent_field_link_musicbrainz" href="" class="link link-hover" target="_blank" rel="noopener noreferrer">MusicBrainz</a><br>
+                      <a id="infoModal_fileTabContent_field_link_applemusic" href="" class="link link-hover" target="_blank" rel="noopener noreferrer">Apple Music</a><br>
+                      <a id="infoModal_fileTabContent_field_link_spotify" href="" class="link link-hover" target="_blank" rel="noopener noreferrer">Spotify</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="infoModal_audioTabContent" class="hidden">
+            <p class="text-xl text-bold">Audio Information</p>
+            <div class="overflow-x-auto">
+              <table class="table table-xs table-pin-cols">
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <td>Value</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Format</th>
+                    <td id="infoModal_audioTabContent_field_format" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>MIME Type</th>
+                    <td id="infoModal_audioTabContent_field_mime" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Codec ID</th>
+                    <td id="infoModal_audioTabContent_field_cid" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Is Lossless</th>
+                    <td id="infoModal_audioTabContent_field_lossless" class="select-all">null</td>
+                  </tr>
+                  <tr>
+                    <th>Bit Depth</th>
+                    <td class="select-all"><span id="infoModal_audioTabContent_field_bitDepth">null</span><span id="infoModal_audioTabContent_bitDepthUnit">-bit</span></td>
+                  </tr>
+                  <tr>
+                    <th>Sample Rate</th>
+                    <td class="select-all"><span id="infoModal_audioTabContent_field_sampleRate">null</span><span id="infoModal_audioTabContent_sampleRateUnit"> Hz</span></td>
+                  </tr>
+                  <tr>
+                    <th>Channel Count</th>
+                    <td class="select-all"><span id="infoModal_audioTabContent_field_chCount">null</span><span id="infoModal_audioTabContent_channelCountUnit"> ch</span></td>
+                  </tr>
+                  <tr>
+                    <th>Bit Rate</th>
+                    <td class="select-all"><span id="infoModal_audioTabContent_field_bitRate">null</span><span id="infoModal_audioTabContent_bitRateUnit"> kbps</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </form>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+    <dialog id="settingsModal" class="modal">
+      <form method="dialog" class="modal-box bg-white-900 text-left select-none">
+        <button for="my-modal-3" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        <p class="text-xl text-bold">Settings</p>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Data Language</span>
+            <select id="settings_dataLang" class="select select-bordered">
+            </select>
+          </label>
+          <label class="label">
+            <span class="label-text">Category</span>
+            <select id="settings_db_category" class="select select-bordered">
+            </select>
+          </label>
+          <label class="label">
+            <span class="label-text">Prefered Quality</span>
+            <select id="settings_quality" class="select select-bordered">
+            </select>
+          </label>
+        </div>
+      </form>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+  </div>
+</body>
+</html>

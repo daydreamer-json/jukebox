@@ -1,0 +1,26 @@
+{
+  "name": "jukebox",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daydreamer-json/jukebox.git"
+  },
+  "author": "daydreamer-json",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daydreamer-json/jukebox/issues"
+  },
+  "homepage": "https://github.com/daydreamer-json/jukebox#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "log4js": "^6.9.1",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "sqlite3": "^5.1.6"
+  }
+}
