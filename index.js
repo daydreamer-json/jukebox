@@ -32,6 +32,7 @@ function showHelpMsg () {
   let commandList = [
     'help',
     'saveAllDatabaseTableToJsonFile',
+    'saveAllDatabaseTableToIntegratedFile'
   ];
   console.log(`\nUsage: node ${path.basename(process.argv[1])} COMMAND [VALUE]\n\nCommands:\n  ${commandList.join('\n  ')}`);
 }
@@ -55,7 +56,7 @@ function saveAllDatabaseTableToJsonFile () {
       });
       logger.debug(`Loading database ...`);
       db.serialize(() => {
-        db.each("select name from sqlite_master where type='table'", function (err, table) {
+        db.each("SELECT name FROM sqlite_master WHERE type='table'", function (err, table) {
           if (err) throw err;
           let tableName = table.name;
           logger.debug(`Database table '${tableName}' loaded successfully`);
@@ -88,6 +89,36 @@ function saveAllDatabaseTableToJsonFile () {
   });
 }
 
+function saveAllDatabaseTableToIntegratedFile() {
+  const outputJson = {};
+  logger.debug(`Loading database ...`);
+  db.all(`SELECT name FROM sqlite_master WHERE type='table' ORDER BY NAME`, (err, tableRaw) => {
+    if (err) {
+      throw err;
+    }
+    logger.debug(`Database loaded successfully`);
+    const tablesName = tableRaw.map((row) => row.name);
+    logger.debug(`Loaded table list: ${JSON.stringify(tablesName)}`);
+    tablesName.forEach((tableName) => {
+      db.all(`SELECT * FROM ${tableName}`, (err, tableData) => {
+        if (err) {
+          throw err;
+        }
+        outputJson[tableName] = tableData;
+        logger.debug(`Integrated table: ${tableName}`);
+        if (Object.keys(outputJson).length === tablesName.length) {
+          fs.writeFile(`db/master.json`, JSON.stringify(outputJson), (error) => {
+            if (error) {
+              throw error;
+            }
+            logger.debug(`Wrote 'db/master.json'`);
+            logger.info('Process completed');
+          });
+        }
+      });
+    });
+  });
+}
 
 if (arg.length === 0) {
   showHelpMsg();
@@ -96,6 +127,8 @@ if (arg.length === 0) {
     showHelpMsg();
   } else if (arg[0] === 'saveAllDatabaseTableToJsonFile') {
     saveAllDatabaseTableToJsonFile();
+  } else if (arg[0] === 'saveAllDatabaseTableToIntegratedFile') {
+    saveAllDatabaseTableToIntegratedFile();
   } else {
     showErrorMsg('0001');
   }
